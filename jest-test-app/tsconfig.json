@@ -1,0 +1,43 @@
+// {
+//   "compilerOptions": {
+//     "target": "ESNext",
+//     "module": "ESNext",
+//     "jsx": "react-jsx",
+//     "strict": true,
+//     "esModuleInterop": true,
+//     "skipLibCheck": true,
+//     "forceConsistentCasingInFileNames": true,
+//     "moduleResolution": "node",
+//     "resolveJsonModule": true,
+//     "isolatedModules": true,
+//     "noEmit": true,
+//     "baseUrl": ".",
+//     "paths": {
+//       "@/*": ["./src/*"]
+//     },
+//     "types": ["node", "jest", "vite/client", "@testing-library/jest-dom"]
+//   },
+//   "include": ["src", "tests"],
+//   "exclude": ["node_modules", "dist"]
+// }
+
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext", // Changed from ESNext to commonjs
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "isolatedModules": true, // Added here per ts-jest warning
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "types": ["node", "jest", "vite/client", "@testing-library/jest-dom"]
+  },
+  "include": ["src", "tests"],
+  "exclude": ["node_modules", "dist"]
+}

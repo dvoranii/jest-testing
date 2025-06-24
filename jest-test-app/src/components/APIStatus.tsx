@@ -1,4 +1,4 @@
-// src/components/APIStatus.tsx
+
 import { useState, useEffect } from 'react';
 import { checkAPIHealth } from '../services/apiClient';
 

@@ -17,61 +17,47 @@ describe('APIStatus', () => {
   });
 
   it('shows online status when API succeeds', async () => {
-    mockCheckAPIHealth.mockResolvedValue(true); // Mock checkAPIHealth directly
+    mockCheckAPIHealth.mockResolvedValue(true);
     render(<APIStatus />);
 
     await waitFor(() => {
       expect(screen.getByTestId('api-status')).toHaveTextContent('API Status:');
-      expect(screen.getByTestId('api-status-text')).toHaveTextContent('Connected'); // Adjusted text
-      expect(screen.getByTestId('api-status-text')).toHaveClass('text-green-800'); // Adjusted class
+      expect(screen.getByTestId('api-status-text')).toHaveTextContent('Connected');
+      expect(screen.getByTestId('api-status-text')).toHaveClass('text-green-800'); 
     });
   });
 
   it('shows error status when API fails', async () => {
-    mockCheckAPIHealth.mockResolvedValue(false); // checkAPIHealth returns false for disconnect
-    // Or if it throws: mockCheckAPIHealth.mockRejectedValue(new Error('API down'));
-    // But your component handles `false` for disconnected state, so resolved `false` is better.
+    mockCheckAPIHealth.mockResolvedValue(false); 
     render(<APIStatus />);
 
     await waitFor(() => {
       expect(screen.getByTestId('api-status')).toHaveTextContent('API Status:');
-      expect(screen.getByTestId('api-status-text')).toHaveTextContent('Disconnected'); // Adjusted text
-      expect(screen.getByTestId('api-status-text')).toHaveClass('text-red-800'); // Adjusted class
+      expect(screen.getByTestId('api-status-text')).toHaveTextContent('Disconnected'); 
+      expect(screen.getByTestId('api-status-text')).toHaveClass('text-red-800'); 
     });
   });
 
   it('shows loading state initially', () => {
-    // Delay the mock response to test loading state
     mockCheckAPIHealth.mockImplementation(
-      () => new Promise(() => {}) // Never resolves
+      () => new Promise(() => {}) 
     );
 
     render(<APIStatus />);
 
-    // Immediately check for loading state
     expect(screen.getByTestId('api-status')).toHaveTextContent('API Status:');
-    expect(screen.getByTestId('api-status-text')).toHaveTextContent('Checking...'); // Adjusted text
-    expect(screen.getByTestId('api-status-text')).toHaveClass('text-yellow-800'); // Adjusted class
+    expect(screen.getByTestId('api-status-text')).toHaveTextContent('Checking...'); 
+    expect(screen.getByTestId('api-status-text')).toHaveClass('text-yellow-800'); 
   });
 
     it('refreshes status when refresh button is clicked', async () => {
-    // Initial state: connected
     mockCheckAPIHealth.mockResolvedValueOnce(true);
     render(<APIStatus />);
     await waitFor(() => expect(screen.getByTestId('api-status-text')).toHaveTextContent('Connected'));
 
-    // Mock next call to be disconnected
     mockCheckAPIHealth.mockResolvedValueOnce(false);
 
-    const refreshButton = screen.getByRole('button', { name: /refresh/i }); // Or "Checking..." if in loading state
-    // If the button text can be "Checking..." while loading, consider using its role and disabled state
-    // await userEvent.click(screen.getByRole('button', { name: /Refresh/i })); // Assuming button is 'Refresh' when not checking
-
-    // For the initial loading state (before first resolve) the button is 'Checking...' and disabled.
-    // After it connects, it becomes 'Refresh' and enabled.
-    // If the component is mocked to be connected initially, the button will be 'Refresh'.
-    // If it's mocked to be disconnected, it will also be 'Refresh'.
-    // Only if it's currently checking, it will be 'Checking...' and disabled.
+    const refreshButton = screen.getByRole('button', { name: /refresh/i }); 
     await userEvent.click(refreshButton);
 
     await waitFor(() => {

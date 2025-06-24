@@ -1,4 +1,4 @@
-// src/types/test.d.ts
+
 import 'react';
 
 declare module 'react' {

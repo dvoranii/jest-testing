@@ -10,9 +10,6 @@ module.exports = {
       'ts-jest',
       {
         tsconfig: 'tsconfig.json',
-        // diagnostics: {
-        //   ignoreCodes: [1343] // Ignore import.meta errors in tests
-        // },
         astTransformers: {
           before: [
             {

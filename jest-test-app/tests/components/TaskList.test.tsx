@@ -54,7 +54,7 @@ describe('TaskList', () => {
     render(<TaskList tasks={mockTasks} onToggleTask={mockOnToggleTask} />);
     
     const checkboxes = screen.getAllByRole('checkbox');
-    expect(checkboxes[0]).not.toBeChecked(); // Task 1 is not completed
-    expect(checkboxes[1]).toBeChecked(); // Task 2 is completed
+    expect(checkboxes[0]).not.toBeChecked(); 
+    expect(checkboxes[1]).toBeChecked(); 
   });
 });

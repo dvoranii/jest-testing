@@ -2,7 +2,6 @@ import { renderHook, act, waitFor } from '@testing-library/react';
 import { useTaskManager } from '../../src/hooks/useTaskManager';
 import * as taskService from '../../src/services/taskService';
 
-// Mock the entire taskService module
 jest.mock('../../src/services/taskService');
 
 describe('useTaskManager', () => {

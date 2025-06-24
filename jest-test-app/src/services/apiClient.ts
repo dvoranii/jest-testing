@@ -1,16 +1,12 @@
-// src/services/apiClient.ts
 
-// Type-safe environment detection
 function getBaseUrl(): string {
-  // Test environment (Jest)
   if (typeof process !== 'undefined' && process.env?.VITE_API_URL) {
     return process.env.VITE_API_URL;
   }
-  // Development/production (Vite)
+
   if (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) {
     return import.meta.env.VITE_API_URL;
   }
-  // Fallback - include /api prefix
   return 'http://localhost:3000/api';
 }
 
@@ -20,7 +16,6 @@ export async function apiFetch<T>(
   endpoint: string,
   options?: RequestInit
 ): Promise<T> {
-  // Remove leading slash from endpoint if present to avoid double slashes
   const cleanEndpoint = endpoint.startsWith('/') ? endpoint.slice(1) : endpoint;
   const url = `${BASE_URL}/${cleanEndpoint}`;
   
@@ -50,7 +45,6 @@ export async function apiFetch<T>(
   }
 }
 
-// Health check function to test connection
 export async function checkAPIHealth(): Promise<boolean> {
   try {
     await apiFetch('health');

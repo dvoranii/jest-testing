@@ -1,6 +1,5 @@
 require('@testing-library/jest-dom');
 
-// Mock Vite environment variables
 globalThis.import = {
   meta: {
     env: {

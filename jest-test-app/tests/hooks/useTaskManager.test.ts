@@ -32,17 +32,14 @@ describe('useTaskManager', () => {
     
     const { result } = renderHook(() => useTaskManager());
 
-    // Wait for initial load
     await waitFor(() => {
       expect(result.current.tasks).toHaveLength(2);
     });
 
-    // Wrap state updates in act()
     await act(async () => {
       await result.current.addTask('New Task');
     });
 
-    // Verify the state update
     expect(result.current.tasks).toHaveLength(3);
     expect(result.current.tasks[2]).toEqual(newTask);
     expect(taskService.addTask).toHaveBeenCalledWith({
@@ -61,6 +58,6 @@ describe('useTaskManager', () => {
     });
 
     expect(result.current.error).toBe('Failed to add task');
-    expect(result.current.tasks).toHaveLength(2); // Should remain unchanged
+    expect(result.current.tasks).toHaveLength(2); 
   });
 });

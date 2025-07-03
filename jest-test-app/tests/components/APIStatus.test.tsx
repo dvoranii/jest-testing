@@ -1,12 +1,10 @@
-// tests/components/APIStatus.test.tsx
 import { render, screen, waitFor } from '../test-utils';
 import { APIStatus } from '../../src/components/APIStatus';
-// import * as taskService from '../../src/services/taskService';
 import { checkAPIHealth } from '@/services/apiClient';
 import userEvent from '@testing-library/user-event';
 
-jest.mock('../../src/services/apiClient', () => ({ // <-- MOCK apiClient instead
-  checkAPIHealth: jest.fn(), // Mock this specific function
+jest.mock('../../src/services/apiClient', () => ({
+  checkAPIHealth: jest.fn(), 
 }));
 
 const mockCheckAPIHealth = checkAPIHealth as jest.Mock;
@@ -61,7 +59,7 @@ describe('APIStatus', () => {
     await userEvent.click(refreshButton);
 
     await waitFor(() => {
-      expect(mockCheckAPIHealth).toHaveBeenCalledTimes(2); // Initial call + refresh call
+      expect(mockCheckAPIHealth).toHaveBeenCalledTimes(2);
       expect(screen.getByTestId('api-status-text')).toHaveTextContent('Disconnected');
     });
   });
